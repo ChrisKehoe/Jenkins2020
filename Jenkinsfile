@@ -1,30 +1,24 @@
-
 pipeline
 {
     agent any
     stages
     {
-        stage('Fetch_Project')
+        stage('FetchStage')
         {
             steps
             {
-                git 'https://github.com/ChrisKehoe/Jenkins'
+                git 'https://github.com/ChrisKehoe/Jenkins2020'
             }
         }
-        stage('Build_Project')
-        {
-            steps
-            {
-                sh label: '', script: 'javac -cp junit-4.13-rc-2.jar:. Student.java studentTest.java'
+        stage('BuildStage') { 
+            steps {
+                bat 'javac -cp junit-4.13.jar; Student.java studentTest.java'
             }
-        }
-        stage('Test_Project')
-        {
-            steps
-            {
-                sh label: '', script: 'java -cp junit-4.13-rc-2.jar:hamcrest-core-1.3.jar:. org.junit.runner.JUnitCore studentTest'
+        } 
+        stage('TestStage') { 
+            steps {
+                bat 'java -cp junit-4.13.jar;hamcrest-core-1.3.jar; org.junit.runner.JUnitCore studentTest'
             }
-        }
-
+        }   
     }
 }
